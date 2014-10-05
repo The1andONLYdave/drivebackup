@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
 :: XCOPY/robocopy Once a day batch file.
@@ -38,15 +38,37 @@ set str=%DATE%
 set year=%str:~6,4%
 set month=%str:~3,2%
 set day=%str:~0,2%
-set stra=%month%-%day%-%year%
+set stra=%year%%month%%day%
 echo %stra%
 
-xcopy "e:\xxonce.chk" /L /D:%stra% >nul
-if errorlevel 1 goto start
+
+for %%a in ("e:\xxonce.chk") do set FileDate=%%~ta
+
+IF DEFINED %FileDate GOTO exists
+::file exist
+
+goto start
+:start backup, file don't exist, no need to compare
+
+:exists
+set year=%FileDate:~6,4%
+set month=%FileDate:~3,2%
+set day=%FileDate:~0,2%
+set strb=%year%%month%%day%
+echo %strb%
+
+
+if %strb% LSS %stra% goto start
+::run yesterday or earlier
+
+::run today
+::xcopy "e:\xxonce.chk" /L /D:%stra% >nul
+::if errorlevel 1 goto start
+::errorlevel 1 nix zu kopieren
 echo.
 type "e:\xxonce.chk"
 echo.
-MSG * "Daily Backup run today already" 
+MSG * "Daily Backup run today("%stra%") already. Last run was "%strb%  
 goto end
 ::
 :start
