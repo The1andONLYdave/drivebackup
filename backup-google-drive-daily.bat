@@ -1,4 +1,4 @@
-@echo off
+﻿@echo off
 :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
 :: XCOPY/robocopy Once a day batch file.
@@ -47,6 +47,7 @@ echo.
 type "e:\xxonce.chk"
 echo.
 MSG * "Daily Backup run today already" 
+del "e:\xxonce.chk"
 goto end
 ::
 :start
