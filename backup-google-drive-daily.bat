@@ -67,7 +67,7 @@ echo.
 type "e:\xxonce.chk"
 echo.
 MSG * "Daily Backup run today already" 
-::del "e:\xxonce.chk"
+del "e:\xxonce.chk"
 goto end
 ::
 :start
